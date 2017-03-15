@@ -9,6 +9,9 @@ Vagrant.configure("2") do |config|
   config.vm.define :nginx do |nginx|
     nginx.vm.box = 'ubuntu/trusty64'
     nginx.vm.network :private_network, ip: '2.2.2.2'
+    nginx.vm.provision :shell, inline: <<-SHELL
+      apt update && apt install -y nginx
+    SHELL
   end
 
   config.vm.define :user do |user|
