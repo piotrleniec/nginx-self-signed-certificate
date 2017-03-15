@@ -9,9 +9,16 @@ Vagrant.configure("2") do |config|
   config.vm.define :nginx do |nginx|
     nginx.vm.box = 'ubuntu/trusty64'
     nginx.vm.network :private_network, ip: '2.2.2.2'
+    nginx.vm.synced_folder './nginx', '/vagrant'
     nginx.vm.provision :shell, inline: <<-SHELL
       apt-get update
       apt-get install -y nginx
+
+      mkdir -p /var/www/html
+      cp /vagrant/index.html /var/www/html/index.html
+
+      cp /vagrant/nginx.conf /etc/nginx/nginx.conf
+      nginx -s reload
     SHELL
   end
 
