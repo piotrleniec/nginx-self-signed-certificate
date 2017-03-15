@@ -25,6 +25,9 @@ Vagrant.configure("2") do |config|
   config.vm.define :user do |user|
     user.vm.box = 'ubuntu/trusty64'
     user.vm.network :private_network, ip: '3.3.3.3'
+    user.vm.provision :shell, inline: <<-SHELL
+      echo '2.2.2.2 nginx' >> /etc/hosts
+    SHELL
   end
 
   # The most common configuration options are documented and commented below.
