@@ -17,6 +17,9 @@ Vagrant.configure("2") do |config|
       mkdir -p /var/www/html
       cp /vagrant/index.html /var/www/html/index.html
 
+      cp /vagrant/ssl.crt /etc/nginx/ssl.crt
+      cp /vagrant/ssl.key /etc/nginx/ssl.key
+
       cp /vagrant/nginx.conf /etc/nginx/nginx.conf
       nginx -s reload
     SHELL
