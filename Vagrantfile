@@ -28,8 +28,12 @@ Vagrant.configure("2") do |config|
   config.vm.define :user do |user|
     user.vm.box = 'ubuntu/trusty64'
     user.vm.network :private_network, ip: '3.3.3.3'
+    user.vm.synced_folder './user', '/vagrant'
     user.vm.provision :shell, inline: <<-SHELL
       echo '2.2.2.2 nginx' >> /etc/hosts
+
+      cp /vagrant/nginx.crt /usr/local/share/ca-certificates/nginx.crt
+      update-ca-certificates
     SHELL
   end
 
